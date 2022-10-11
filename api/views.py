@@ -1,11 +1,15 @@
+import http
+from http.client import BAD_REQUEST, MULTIPLE_CHOICES, NOT_FOUND, OK
 from django.http.request import HttpRequest
 from django.http.response import JsonResponse, HttpResponseBase
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
-from .models import Estacionamiento, EstadoSensor, Nivel
+from .models import Estacionamiento, EstadoSensor, Nivel, Sensor
 import json
+import re
 from typing import Any
+from http import HTTPStatus
 
 # Create your views here.
 class EstacionamientoAPI(View):
@@ -24,6 +28,7 @@ class EstacionamientoAPI(View):
             data = {'message': "Success", 'parking' : park_list}
         else:
             park_list = list(Estacionamiento.objects.select_related().order_by('id').values("id", "id_sensor_id__nombre", "id_nivel_id__descripcion", "id_estado_sensor_id__codigo"))
+            data = {'message': "Success", 'parking' : park_list}
 
         if len(park_list) == 0:
             data = {'message': "Parking not found"}
@@ -83,6 +88,61 @@ class NivelAPI(View):
         json = json.loads(request.body)
         data = {'message': "Success"}
         return JsonResponse(data)
+
+    def put(self, request):
+        pass
+
+    def delete(self, request):
+        pass
+
+class SensorAPI(View):
+    def get(self, request):
+
+        print(request.GET)
+
+        ip = re.match(r"^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$", request.GET['ip'])
+
+        if ip:
+            ip = ip.group()
+
+        print("ip: ", ip)
+
+        if ip is None or ip=='':
+            data = {'message': "Failed", 'error' : 'No se informó ninguna IP'}
+            http_code = HTTPStatus.BAD_REQUEST
+            return JsonResponse(data, status=http_code)
+
+        sensores = list(Sensor.objects.filter(ip=ip).select_related().values("id"))
+        print("sensor: ", sensores)
+
+        if len(sensores) == 0:
+            data = {'message': "Failed", 'error' : 'no se encontró ningún sensor con esa IP'}
+            http_code = HTTPStatus.NOT_FOUND
+            return JsonResponse(data, status=http_code)
+        elif len(sensores) > 1:
+            data = {'message': "Failed", 'error' : 'Existe más de un sensor para la IP solicitada'}
+            http_code = HTTPStatus.MULTIPLE_CHOICES
+            return JsonResponse(data, status=http_code)
+
+        estacionamiento = list(Estacionamiento.objects.filter(id_sensor_id=sensores[0]['id']).select_related())
+
+        print("estacionamiento: ", estacionamiento)
+
+        if len(estacionamiento) == 0:
+            data = {'message': "Failed", 'error' : 'no se encontró ninguna cochera con ese sensor'}
+            http_code = HTTPStatus.NOT_FOUND
+        elif len(estacionamiento) > 1:
+            data = {'message': "Failed", 'error' : 'Existe más de una cochera para el sensor indica. Avise al administrador.'}
+            http_code = HTTPStatus.MULTIPLE_CHOICES
+        else:
+            data = {'message': "Success", 'park' : estacionamiento[0].id}
+            http_code = HTTPStatus.OK
+
+        print("http_code: ", http_code)
+        return JsonResponse(data, status=http_code)
+
+    def post(self, request):
+        pass
 
     def put(self, request):
         pass

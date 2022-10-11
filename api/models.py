@@ -1,3 +1,4 @@
+from email.policy import default
 from django.db import models
 
 # Create your models here.
@@ -13,9 +14,10 @@ class Sensor(models.Model):
     id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=255)
     cochera = models.CharField(max_length=50)
+    ip = models.CharField(max_length=100, default="127.0.0.1")
 
     def __str__(self):
-        return "ID [%s] NOMBRE [%s] COCHERA [%s]"%(self.id, self.nombre, self.cochera)
+        return "ID [%s] NOMBRE [%s] COCHERA [%s] IP [%s]"%(self.id, self.nombre, self.cochera, self.ip)
 
 class EstadoSensor(models.Model):
     id = models.AutoField(primary_key=True)
