@@ -161,8 +161,8 @@ function crearCards(piso) {
             divOcupados.innerHTML = cntOcupado;
             let divReservados = document.getElementById("lugaresReservados");
             divReservados.innerHTML = cntReservado;
-            let divLiberados = document.getElementById("lugaresLiberados");
-            divLiberados.innerHTML = cntLiberado;
+            //let divLiberados = document.getElementById("lugaresLiberados");
+            //divLiberados.innerHTML = cntLiberado;
 
         },
         function (error) { myDisplayer(error); }

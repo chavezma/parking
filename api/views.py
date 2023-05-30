@@ -33,6 +33,7 @@ class EstacionamientoAPI(View):
     def get(self, request, park_id=0, nivel_id=None):
 
         if nivel_id is not None:
+            print("holaa get-----")
             park_list = list(Estacionamiento.objects.filter(id_nivel_id__id=nivel_id).order_by('id').select_related().values("id", "id_sensor_id__nombre", "id_nivel_id__descripcion", "id_estado_sensor_id__codigo"))
             data = {'message': "Success", 'totales': len(park_list), 'parking' : park_list}
         elif park_id > 0:
@@ -84,7 +85,7 @@ class EstacionamientoAPI(View):
 
         return JsonResponse(data)
 
-    def delete(self, request):  
+    def delete(self, request):
         pass
 
 class NivelAPI(View):
@@ -127,7 +128,7 @@ class SensorAPI(View):
         sensores = list(Sensor.objects.filter(ip=ip).select_related().values("id"))
         print("sensor: ", sensores)
 
-        if len(sensores) == 0:  
+        if len(sensores) == 0:
             data = {'message': "Failed", 'error' : 'no se encontró ningún sensor con esa IP'}
             http_code = HTTPStatus.NOT_FOUND
             return JsonResponse(data, status=http_code)
@@ -175,4 +176,3 @@ class Ping_sensor(View):
 
 
 
-    
