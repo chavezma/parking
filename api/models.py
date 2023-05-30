@@ -1,4 +1,6 @@
+from email.policy import default
 from django.db import models
+from datetime import datetime
 
 # Create your models here.
 class Nivel(models.Model):
@@ -13,9 +15,10 @@ class Sensor(models.Model):
     id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=255)
     cochera = models.CharField(max_length=50)
+    ip = models.CharField(max_length=100, default="127.0.0.1")
 
     def __str__(self):
-        return "ID [%s] NOMBRE [%s] COCHERA [%s]"%(self.id, self.nombre, self.cochera)
+        return "ID [%s] NOMBRE [%s] COCHERA [%s] IP [%s]"%(self.id, self.nombre, self.cochera, self.ip)
 
 class EstadoSensor(models.Model):
     id = models.AutoField(primary_key=True)
@@ -48,9 +51,15 @@ class Estacionamiento(models.Model):
     def __str__(self):
         return "ID [%s] NIVEL [%s] SENSOR [%s] ESTADO [%s]"%(self.id, self.nivel, self.sensor, self.codigo)
 
-class Transaccion(models.Model):
-    id = models.AutoField(primary_key=True)
-    id_estado_sensor = models.ForeignKey(EstadoSensor, on_delete=models.CASCADE)
-    id_nivel = models.ForeignKey(Nivel, on_delete=models.CASCADE)
-    id_sensor = models.ForeignKey(Sensor, on_delete=models.CASCADE)
-    fecha_transaccion = models.DateTimeField(auto_now_add=True)
+# class Transaccion(models.Model):
+#     id = models.AutoField(primary_key=True)
+#     id_estado_sensor = models.ForeignKey(EstadoSensor, on_delete=models.CASCADE)
+#     id_nivel = models.ForeignKey(Nivel, on_delete=models.CASCADE)
+#     id_sensor = models.ForeignKey(Sensor, on_delete=models.CASCADE)
+#     fecha_transaccion = models.DateTimeField(auto_now_add=True)# 
+
+# class Ping(models.Model):
+#     id = models.AutoField(primary_key=True)
+#     id_sensor = models.ForeignKey(Sensor, on_delete=models.CASCADE)
+#     fecha_ping = models.DateTimeField(auto_now_add=True)
+

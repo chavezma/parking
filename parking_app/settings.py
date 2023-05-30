@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 from .config import config_params
 from pathlib import Path
+import mimetypes
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,18 @@ SECRET_KEY = config_params['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+mimetypes.add_type("text/css", "css", True)
+
+ALLOWED_HOSTS = [
+    "192.168.1.80"
+    '192.168.1.80:8000',
+    "http://localhost",
+    "parkingpruebas.ddns.net",
+    "http://parkingpruebas.ddns.net/",
+    'parkingpruebas.ddns.net',
+    'http://parkingpruebas.ddns.net/',
+    "localhost",
+]
 
 
 # Application definition
@@ -139,8 +151,28 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5500",
-    "http://127.0.0.1:5500"
+    "http://localhost:8000",
+    "http://127.0.0.1:5500",
+    "http://127.0.0.1:8000",
+    "http://192.168.1.80:8000",
+    "http://parkingpruebas.ddns.net:8000",
+    "http://parkingpruebas.ddns.net:",
+
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None
+
+CORS_ORIGIN_WHITELIST = (
+'http://localhost:5000',
+'http://localhost:8000',
+'http://192.168.1.80:8000',
+'parkingpruebas.ddns.net',
+'parkingpruebas.ddns.net:8000',
+"http://parkingpruebas.ddns.net",
+"http://parkingpruebas.ddns.net:8000",
+)
 
 CORS_ALLOW_METHODS = [
     'DELETE',
