@@ -29,9 +29,12 @@ DEBUG = True
 mimetypes.add_type("text/css", "css", True)
 
 ALLOWED_HOSTS = [
-    "192.168.1.80"
+    "http://127.0.0.1",
+    "http://127.0.0.1:8000",
+    "192.168.1.80",
     '192.168.1.80:8000',
     "http://localhost",
+    "http://localhost:8000",
     "parkingpruebas.ddns.net",
     "http://parkingpruebas.ddns.net/",
     'parkingpruebas.ddns.net',
