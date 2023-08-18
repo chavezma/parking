@@ -1,5 +1,4 @@
-//let ip_global = "parkingpruebas.ddns.net:8000";
-let ip_global = "localhost:8000";
+let ip_global = "192.168.1.42:8000";
 
 
 let parksPB = ["A01", "A02", "A03", "A04", "A05", "A06", "A07", "A08", "A09", "A10", "A11", "A12", "A13", "A14", "A15", "A16", "A17", "A18", "A19", "A20"];
@@ -27,12 +26,12 @@ function crearCard(container, id, park, estado) {
 
     divRow1.appendChild(divTitulo);
 
-    let divImage = document.createElement("div");
+    /*let divImage = document.createElement("div");
     var imgAuto = document.createElement("img");
     imgAuto.setAttribute("src","/static/img/parking.png");
     imgAuto.classList.add("cardAuto");
     divImage.appendChild(imgAuto);
-    divRow1.appendChild(divImage);
+    divRow1.appendChild(divImage);*/
 
     let divButton = document.createElement("div");
     divButton.classList.add("center");

@@ -1,9 +1,10 @@
 .cuerpo{
-    background-image: url(./img/fondo_1.png);
+    background-image: url(../img/fondo_1.png);
 }	
 
 nav{
 	width: 80%;
+	background: white;
 	position: absolute;
 	left: 10%;
 	margin-top: 1.5rem;	
@@ -138,9 +139,7 @@ select {
 	cursor: pointer;
 	font-size: 1em;
 	font-family: 'Open Sans', sans-serif;
-	background: #36eeba;
-	
-	
+	background: #36eeba;	
 }
 
 select::-ms-expand {
@@ -414,125 +413,3 @@ button[disabled] {
 	margin-bottom: 1rem;
 }
 
-
-@media (max-width: 500px) {
-
-	.cuerpo{
-		background-image: url(./img/fondo_1.png);
-	}	
-
-	.contenedor-conciertos {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 15px;
-		border-style: solid;
-		height: 50%;
-		padding: 10px;
-		border-radius: 15px !important;
-		box-shadow: 10px 5px 5px black;
-	}
-
-
-	.tablero {
-		border-style: solid;
-		padding: 5px;
-		border-radius: 15px;
-		display: grid;
-		grid-template-columns: repeat(2, 2fr);
-		gap: 20px;
-		font-size: 1.5rem;
-		box-shadow: 10px 5px 5px black;
-		font-weight: bold;		
-	}
-	
-	.tablero p {
-		font-size: 25px;	
-	}
-	.autito{
-		margin: 0 50% 5px 15px;
-	}
-
-
-	.marca{
-		margin: 15px 0 0 0;
-		font-size: 12px;
-		font-family: 'Rubik Vinyl', cursive;
-		color: black;
-		text-shadow: 1px 1px 5px rgb(49, 4, 248);
-	}
-
-	select {
-
-		-webkit-appearance: none;
-		-moz-appearance: none;
-		-ms-appearance: none;
-		appearance: none;
-		outline: 0;
-		box-shadow: none;
-		border: 0 !important;
-		background: #5c6664;
-		background-image: none;
-		flex: 1;
-		padding: 0 .5em;
-		cursor: pointer;
-		font-size: 1em;
-		font-family: 'Open Sans', sans-serif;
-		background: #459153;;
-		
-		
-	}
-
-	.selectCustom {
-		width: 50%;
-		position: relative;
-		display: flex;
-		line-height: 3;
-		background: #5c6664;
-		overflow: hidden;
-		border-radius: .25em;
-		box-shadow: 10px 5px 5px black;
-		border-radius: 1rem;
-		
-	}
-
-	.cardTitulo {	
-		font-size: 1rem;
-	}
-
-	.titulodiv{
-		font-size:1rem;
-	}
-
-	.custombtn {
-		min-width: 100%;
-		height: 25px;
-		color: #080101;
-		padding: 5px 10px;	
-		font-weight: bold;
-		cursor: pointer;
-		transition: all 0.3s ease;
-		position: relative;
-		display: inline-block;
-		outline: none;
-		border-radius: 7px;
-		border: none;
-		box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1);
-		background: #57cc99;
-		z-index: 1;
-	}
-	
-
-	.btnReserva {
-		font-size: 12px;
-		padding-right: 3px;	
-	}
-
-
-	.marca_icon{
-		display:flex;
-		align-items:flex-start;		
-		justify-content:end;
-		flex-direction: row;		
-	}
-
-}

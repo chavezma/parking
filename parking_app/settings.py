@@ -31,15 +31,18 @@ mimetypes.add_type("text/css", "css", True)
 ALLOWED_HOSTS = [
     "http://127.0.0.1",
     "http://127.0.0.1:8000",
-    "192.168.1.80",
-    '192.168.1.80:8000',
+    "127.0.0.1",
+    "127.0.0.1:8000",    
+    "192.168.1.42",
+    "192.168.1.42:8000", 
+    "localhost",   
     "http://localhost",
     "http://localhost:8000",
     "parkingpruebas.ddns.net",
-    "http://parkingpruebas.ddns.net/",
-    'parkingpruebas.ddns.net',
-    'http://parkingpruebas.ddns.net/',
-    "localhost",
+    "http://parkingpruebas.ddns.net",
+    "http://parkingpruebas.ddns.net:8000",
+    "http://parkingpruebas.ddns.net:8000/api/nivel",
+    
 ]
 
 
@@ -65,7 +68,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'corsheaders.middleware.CorsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = "parking_app.urls"
@@ -145,7 +148,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -160,25 +163,30 @@ CORS_ALLOWED_ORIGINS = [
     "http://192.168.1.80:8000",
     "http://parkingpruebas.ddns.net:8000",
     "http://parkingpruebas.ddns.net:",
-
+    "http://192.168.1.42:8000",
+    "http://192.168.1.42",   
+    
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 
 CORS_ORIGIN_WHITELIST = (
 'http://localhost:5000',
 'http://localhost:8000',
-'http://192.168.1.80:8000',
 'parkingpruebas.ddns.net',
 'parkingpruebas.ddns.net:8000',
 "http://parkingpruebas.ddns.net",
 "http://parkingpruebas.ddns.net:8000",
+"http://192.168.1.42:8000",
+"http://192.168.1.42",
+
 )
 
 CORS_ALLOW_METHODS = [
-    'DELETE',
+    'DELETE',   
     'GET',
     'OPTIONS',
     'PATCH',

@@ -1,5 +1,4 @@
-//let ip_global = "parkingpruebas.ddns.net:8000";
-let ip_global = "localhost:8000";
+let ip_global = "192.168.1.42:8000";
 
 
 function myDisplayer(some) {

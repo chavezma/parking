@@ -1,4 +1,3 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,23 +9,22 @@
     <link href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Rubik+Vinyl&display=swap" rel="stylesheet">
     <link href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" >
-    <link rel="stylesheet" href="../static/css/normalize.css">
-    <link rel="stylesheet" href="../static/css/planta3.css">   
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
+    <link href="../static/css/normalize.css">
+    <link href="../static/css/planta.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
-    <script type="text/javascript" src="../static/css/js/nivel.js" > </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="../index.js" > </script>
     <title>Ocupación por Nivel</title>
 </head>
 
 <body class="cuerpo" onload="precarga()">
 
-    <nav class="navbar navbar-expand-lg navbar-light ">
+    <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false"  aria-label="Toggle navigation">
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span  class="navbar-toggler-icon"></span>
-            <span class="menu" href="#"> LooP IoT </span>
+            <span class="menu" href="#"> SMART PARKING </span>
         </button>
         
         <div  class="collapse navbar-collapse" id="navbarNav">
@@ -44,8 +42,12 @@
                     <a class="nav-link disabled" href="#">Reservas</a>
                 </li>
                 <li class="marca_icon">   
-                    <span class="marca" href="#">LooP IoT</span> 
-                    <img class="autito" src="../static/img/autitoo.png">
+                    <span class="marca" href="#">SMART PARKING</span><img class="autito" href="/api/static/img/autitoo.png" alt="autito">
+                    
+                </li>
+                <!-- <li>
+                    <img class="autito" src="../static/img/autitoo.png" alt="autito">
+                </li> -->
             </ul>
         </div>
     </nav>
@@ -58,23 +60,19 @@
         <div class=" tablero">
             <div class="div_lugares">
                 LUGARES
-                <p id="lugaresTotales" class="lugaresTotales"></p> 
-                <img class="logo_gif" src="../static/img/spinnerPMP.gif">
+                <p id="lugaresTotales" class="lugaresTotales"></p><img class="logito-gif" href="/api/static/img/spinnerPMP.gif" width="60px">                 
             </div>
             <div class="div_libre">
                 LIBRES
-                <p id="lugaresLibres"> </p> 
-                <img class="logo_gif" src="../static/img/spinnerPMP.gif">                             
+                <p id="lugaresLibres"></p><img class="logito-gif" href="/api/static/img/spinnerPMP.gif" width="60px">                 
             </div>
             <div class="div_ocupados">
                 OCUPADOS
-                <p id="lugaresOcupados"></p>
-                <img class="logo_gif" src="../static/img/spinnerPMP.gif">
+                <p id="lugaresOcupados"></p><img class="logito-gif" href="/api/static/img/spinnerPMP.gif" width="60px">                 
             </div>
             <div class="div_reservados">
                 RESERVADOS
-                <p id="lugaresReservados"></p>
-                <img class="logo_gif" src="../static/img/spinnerPMP.gif">
+                <p id="lugaresReservados"></p><img class="logito-gif" href="/api/static/img/spinnerPMP.gif" width="60px">                 
             </div>
         </div>
         <div class="contenedor-conciertos">
