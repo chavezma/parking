@@ -1,6 +1,6 @@
 .cuerpo{
     /*background-image: url(../img/fondo_1.png);*/
-	background-image: url(../img/fondo_blanco.jpg);
+	background-image: url(../img/fondo_blanco.png);
 }	
 
 .titulo {
@@ -56,11 +56,11 @@ nav{
 	border-radius: 15px;
 	margin-top: 1.5rem;
 	margin-bottom: 1.5rem;
-	margin-left: 12%;
+	margin-left: 7%;
 	display: grid;
-	grid-template-columns: repeat(2, 2fr);
-	gap: 20px;	
-	width: 75%;
+	grid-template-columns: repeat(4, 2fr);
+	gap: 30px;	
+	width: 85%;
 	font-size: 2.5rem;	
 	font-weight: bold;
 	
@@ -185,20 +185,19 @@ select::-ms-expand {
 }
 
 .libre {
-	background-image: url(../img/verde-pastel.jpg);
+	background-image: url(../img/verde-pastel.png);
 	background-image: 10px 5px 5px black;		
 }
 
 .ocupado {
-	background-image: url(../img/rojo-mate.jpg);
+	background-image: url(../img/rojo-mate.png);
 	color: #070707;
 
 }
 
 .reservado {
-	background-image: url(../img/textura-tela-azul.jpg);
-	background-color: #84b6f4;
-		
+	background-image: url(../img/textura-tela-azul.png);
+	background-color: #84b6f4;		
 	opacity:0.87 ;
 	color: #080808;
 }
