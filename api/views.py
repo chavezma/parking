@@ -1,6 +1,6 @@
 import http
 from http.client import BAD_REQUEST, MULTIPLE_CHOICES, NOT_FOUND, OK
-from msilib.schema import Class
+
 from django.http.request import HttpRequest
 from django.http.response import JsonResponse, HttpResponseBase
 from django.utils.decorators import method_decorator
@@ -33,7 +33,11 @@ class EstacionamientoAPI(View):
     def get(self, request, park_id=0, nivel_id=None):
 
         if nivel_id is not None:
-            print("holaa get-----")
+            client_ip = request.META['REMOTE_ADDR']
+            print("=======================")
+            print(f'get - client_ip [{client_ip}]')
+            print("=======================")
+        
             park_list = list(Estacionamiento.objects.filter(id_nivel_id__id=nivel_id).order_by('id').select_related().values("id", "id_sensor_id__nombre", "id_nivel_id__descripcion", "id_estado_sensor_id__codigo"))
             data = {'message': "Success", 'totales': len(park_list), 'parking' : park_list}
         elif park_id > 0:
@@ -49,24 +53,46 @@ class EstacionamientoAPI(View):
         return JsonResponse(data)
 
     def post(self, request):
+        client_ip = request.META['REMOTE_ADDR']
+    
+        print("=======================")
+        print(f'post - client_ip [{client_ip}]')
+        print("=======================")
+            
         json = json.loads(request.body)
-        data = {'message': "Success"}
+        data = {'message': "en construccion"}
         return JsonResponse(data)
 
     def put(self, request, park_id):
-        print("holaa put")
+        client_ip = request.META['REMOTE_ADDR']
+        print("=======================")
+        print(f'put - client_ip [{client_ip}] - park_id [{park_id}]')
+        print("=======================")
+        
+        print('---- request.body ----')
         print(request.body)
         jsonData = json.loads(request.body)
+        print('---- jsonData ----')
         print(jsonData)
         park = list(Estacionamiento.objects.filter(id=park_id).select_related().values("id", "id_sensor_id__nombre", "id_nivel_id__descripcion", "id_estado_sensor_id__codigo"))
 
         data = {'message': "Parking not found"}
 
         if len(park) > 0:
-
+            print("park encontrado")
+            print(park)
+            
             # id = models.AutoField(primary_key=True)
             # descripcion = models.CharField(max_length=255)
             # codigo = models.CharField(max_length=50)
+
+            if(park[0]['id_estado_sensor_id__codigo'] == 'RESERVADO' and jsonData['origen'] == 'ARDUINO'):
+                print("El lugar esta reservado")
+                data = {'message': "Failed", 'error' : 'La cochera se encuentra reservada'}
+                http_code = HTTPStatus.BAD_REQUEST
+                return JsonResponse(data, status=http_code)
+            else:
+                print("El lugar esta " + park[0]['id_estado_sensor_id__codigo'])
 
             objEstado = EstadoSensor.objects.get(codigo=jsonData['estado'])
             tmp = EstadoSensor(
@@ -75,10 +101,16 @@ class EstacionamientoAPI(View):
                 codigo = objEstado.codigo,
             )
             updPark = Estacionamiento.objects.get(id=park_id)
+            
+            print('---- updPark ----')
             print(updPark)
+            print('---- objEstado ----')
             print(objEstado)
-            print(tmp)
+            print('---- updPark ----')
+            print(updPark)
             updPark.id_estado_sensor = tmp
+            print('---- updPark 2 ----')
+            print(updPark)
             updPark.save(update_fields=["id_estado_sensor"])
             # data = {'message': "Success", 'parking' : updPark}
             data = {'message': "Success"}
@@ -138,9 +170,11 @@ class SensorAPI(View):
             return JsonResponse(data, status=http_code)
 
         estacionamiento = list(Estacionamiento.objects.filter(id_sensor_id=sensores[0]['id']).select_related())
-
-        print("estacionamiento: ", estacionamiento)
-
+        
+        print("estacionamiento 1: ", estacionamiento[0].id_estado_sensor.codigo)
+        
+        codigo_sensor = estacionamiento[0].id_estado_sensor.codigo       
+        
         if len(estacionamiento) == 0:
             data = {'message': "Failed", 'error' : 'no se encontró ninguna cochera con ese sensor'}
             http_code = HTTPStatus.NOT_FOUND
@@ -148,7 +182,8 @@ class SensorAPI(View):
             data = {'message': "Failed", 'error' : 'Existe más de una cochera para el sensor indica. Avise al administrador.'}
             http_code = HTTPStatus.MULTIPLE_CHOICES
         else:
-            data = {'message': "Success", 'cochera' : estacionamiento[0].id, "reservado" : False,}
+            
+            data = {'message': "Success", 'cochera' : estacionamiento[0].id, "reservado" : True if codigo_sensor == 'RESERVADO' else False,}
             print(data)
             http_code = HTTPStatus.OK
 

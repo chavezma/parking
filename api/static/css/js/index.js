@@ -1,4 +1,4 @@
-let ip_global = "192.168.1.42:8000";
+let ip_global = "154.56.51.172:8000";
 
 
 function myDisplayer(some) {

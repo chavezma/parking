@@ -42,7 +42,7 @@ ALLOWED_HOSTS = [
     "http://parkingpruebas.ddns.net",
     "http://parkingpruebas.ddns.net:8000",
     "http://parkingpruebas.ddns.net:8000/api/nivel",
-    
+    "154.56.51.172",
 ]
 
 
