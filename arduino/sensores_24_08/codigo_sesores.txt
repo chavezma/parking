@@ -42,13 +42,13 @@ time_t local, utc;
 const char * days[] = {"Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"} ;                        // Configurar Fecha y hora
 const char * months[] = {"Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"} ; 
 
-const char *host_cochera = "http://parkingpruebas.ddns.net:8000/api/park/";
+const char *host_cochera = "http://154.56.51.172:8000/api/park/";
 
-String str_host_cochera = "http://parkingpruebas.ddns.net:8000/api/park/";
+String str_host_cochera = "http://154.56.51.172:8000/api/park/";
 
-const char *host_sensor = "http://parkingpruebas.ddns.net:8000/api/sensor?ip=192.168.1.103";
+const char *host_sensor = "http://154.56.51.172:8000/api/sensor?ip=192.168.1.103";
 
-String str_host_sensor = "http://parkingpruebas.ddns.net:8000/api/sensor?ip=192.168.1.103";
+String str_host_sensor = "http://154.56.51.172:8000/api/sensor?ip=192.168.1.103";
 
 String str_url_put;
 
@@ -57,8 +57,8 @@ String str_url_sensor;
 String ping_url;
 
 //-------------------------------------CONECXION INTERNET-------------------------------------------------
-const char* ssid="Invitados";
-const char* password = "einstein65";
+const char* ssid="MovistarFibra-51D646";
+const char* password = "morovalentino08";
 int status = WL_IDLE_STATUS; 
 
 IPAddress ip(192,168,1,103);
@@ -67,11 +67,14 @@ IPAddress subnet(255,255,255,0);
 IPAddress dns1(186,130,128,250);
 //--------------------------------------------------------------------------------------------------------
 void setup () {
+  String getData, link1;
+  link1 = str_host_sensor;  
+
 //-------------------------------------CONECXION INTERNET-------------------------------------------------
   WiFiClient client;
-  HTTPClient http;    
+  HTTPClient http; 
 
-  //-------------------------------------SENSOR ULTRASONICO-------------------------------------------------
+//-------------------------------------SENSOR ULTRASONICO-------------------------------------------------
 
   pinMode(TRIG, OUTPUT); 	// trigger como salida
   pinMode(ECO, INPUT);		// echo como entrada
@@ -94,31 +97,36 @@ void setup () {
   SER.println("\nWiFi ready");
   SER.print("my ip adress: ");
   SER.println(WiFi.localIP());   
-  SER.println("");
-  
+  SER.println(""); 
+  delay(5000); 
 
-  http.begin(client,host_sensor);  
-  http.GET();  
+  http.begin(client,link1);
   int httpCode = http.GET();
-  String payload = http.getString();
-  http.end();   
-  
-  StaticJsonDocument<256> resp;
-  DeserializationError err = deserializeJson(resp, payload);  
-  
-  if (err){
-    Serial.print("ERROR; ");
-    Serial.println(err.c_str());
-  
-  return;  
-  }    
 
-  long json_cochera = resp["cochera"];
-  bool json_reservado = resp["reservado"];
-  SER.println("EL NUMERO DE JSON COCHERA ES..."); 
-  SER.println(json_cochera);   
-  str_url_put = str_host_cochera + json_cochera;     
+    if (httpCode > 0){
+      String payload = http.getString();
+      SER.println(httpCode);
+      SER.println("REQUEST OK...");
+      digitalWrite(status_server, HIGH);  
+      StaticJsonDocument<256> resp;
+      DeserializationError err = deserializeJson(resp, payload);  
+      if (err){
+        SER.print("ERROR; ");
+        SER.println(err.c_str()); 
+       return;      
+      }
+      String json_cochera = resp["cochera"];
+      String json_reservado = resp["reservado"];
+      SER.println(json_cochera);
+      SER.println(json_cochera);
+      str_url_put = str_host_cochera + json_cochera;
 
+    } else {
+      SER.println("ERROR EN REQUEST");
+      digitalWrite(status_server, LOW); 
+      delay(3000);  
+    } 
+  
 }
 
 void loop() {
@@ -132,15 +140,15 @@ void loop() {
   str_url_sensor = str_host_sensor;
 
   if(WiFi.status() == 3){
-    timeClient.update();                                                                                                // Actualizar el cliente NTP y obtener la marca de tiempo UNIX UTC
+    timeClient.update();                                       // Actualizar el cliente NTP y obtener la marca de tiempo UNIX UTC
     unsigned long utc =  timeClient.getEpochTime();
     local = usAZ.toLocal(utc);   
     printTime(local); 
     SER.println("");
     delay(2000);  
-
     SER.println("WIFI OK");
     digitalWrite(status_wifi, HIGH);
+
     http.begin(client,link);
     int httpCode = http.GET();
 
@@ -152,13 +160,14 @@ void loop() {
     } else {
       SER.println("ERROR EN REQUEST");
       digitalWrite(status_server, LOW); 
-      delay(5000);
+      delay(3000);  
     }
 
   } else { 
     SER.println("No hay WIFI ");
     digitalWrite(status_wifi, LOW);
   }
+  delay(3000);  
 
 //-------------------------------------SENSOR ULTRASONICO-------------------------------------------------
 
@@ -262,7 +271,7 @@ void Reserva (){
   link = str_url_put;  
   http.begin(client,link);
 
-  http.GET();  
+  
   int httpCode = http.GET();
   String payload = http.getString();
   http.end();  
