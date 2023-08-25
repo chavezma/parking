@@ -1,4 +1,4 @@
-let ip_global = "192.168.1.42:8000";
+let ip_global = "154.56.51.172:8000";
 
 
 let parksPB = ["A01", "A02", "A03", "A04", "A05", "A06", "A07", "A08", "A09", "A10", "A11", "A12", "A13", "A14", "A15", "A16", "A17", "A18", "A19", "A20"];
@@ -300,7 +300,7 @@ const updEstadoSensor = async (id_park, estado) => {
     const requestOptions = {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ estado: estado })
+        body: JSON.stringify({ estado: estado, origen: 'WEB' })
     };
 
     const response = await fetch('http://'+ip_global+'/api/park/' + id_park, requestOptions);
