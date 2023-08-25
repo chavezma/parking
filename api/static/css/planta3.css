@@ -1,6 +1,6 @@
 .cuerpo{
     /*background-image: url(../img/fondo_1.png);*/
-	background-image: url(../img/fondo_blanco.jpg);
+	background-image: url(../img/fondo_blanco.png);
 }	
 
 .titulo {
@@ -40,9 +40,9 @@ nav{
 .marca{
 	margin-left: 45rem;
 	font-size: 30px;
-	font-family: 'Rubik Vinyl', cursive;	
+	font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 	color: black;
-	text-shadow: 1px 1px 5px rgb(49, 4, 248);
+	text-shadow: 1px 1px 5px rgb(99, 79, 189);
 }
 
 .marca:hover{
@@ -56,9 +56,11 @@ nav{
 	border-radius: 15px;
 	margin-top: 1.5rem;
 	margin-bottom: 1.5rem;
+	margin-left: 7%;
 	display: grid;
-	grid-template-columns: repeat(2, 2fr);
-	gap: 20px;
+	grid-template-columns: repeat(4, 2fr);
+	gap: 30px;	
+	width: 85%;
 	font-size: 2.5rem;	
 	font-weight: bold;
 	
@@ -183,20 +185,19 @@ select::-ms-expand {
 }
 
 .libre {
-	background-image: url(../img/verde-pastel.jpg);
+	background-image: url(../img/verde-pastel.png);
 	background-image: 10px 5px 5px black;		
 }
 
 .ocupado {
-	background-image: url(../img/rojo-mate.jpg);
+	background-image: url(../img/rojo-mate.png);
 	color: #070707;
 
 }
 
 .reservado {
-	background-image: url(../img/textura-tela-azul.jpg);
-	background-color: #84b6f4;
-		
+	background-image: url(../img/textura-tela-azul.png);
+	background-color: #84b6f4;		
 	opacity:0.87 ;
 	color: #080808;
 }
@@ -317,7 +318,7 @@ button[disabled] {
 }
 
 .div_lugares{	
-	background: #809ea1;
+	background: #809ea1;	
 	box-shadow: 10px 5px 5px black;
 	border-radius: 1rem;
 	text-align:center;
@@ -392,7 +393,7 @@ button[disabled] {
 .menu{
 	margin-left: 1rem;
 	font-size: 20px;
-	font-family: 'Rubik Vinyl', cursive;
+	font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 	margin-top: 10px;
 	color: black;
 	text-shadow: 1px 1px 5px rgb(49, 4, 248);
